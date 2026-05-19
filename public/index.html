@@ -171,11 +171,12 @@
               <label>
     Email
     <input 
-        type="email"
-        name="email"
-        placeholder="contoh@gmail.com"
-        required
-    >
+    id="email"
+    type="email"
+    name="email"
+    placeholder="support.kokorobux@gmail.com"
+    required
+>
 </label>
               <label class="full">
                 Metode Pembayaran
@@ -248,7 +249,7 @@ async function kirimTelegram() {
 
     let username = document.getElementById("username").value;
     let nominal = document.getElementById("nominal").innerText;
-    let email = document.querySelector('input[name="email"]').value;
+    let email = document.getElementById("email").value;
 
     const res = await fetch("/api/order", {
         method: "POST",
