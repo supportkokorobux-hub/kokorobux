@@ -243,35 +243,33 @@ Kirim Pesanan
     <div class="toast" id="toast" role="status" aria-live="polite"></div>
     <script src="/script.js"></script>
 
-    <script>
-function kirimTelegram() {
+   <script>
+async function kirimTelegram() {
 
     let username = document.getElementById("username").value;
     let nominal = document.getElementById("nominal").innerText;
+    let email = document.querySelector('input[name="email"]').value;
 
-    let pesan =
-`🛒 ORDER ROBUX BARU
-
-👤 Username: ${username}
-💎 Nominal: ${nominal}`;
-
-    fetch(`https://api.telegram.org/bot8991295561:AAEeb0gSUA-elsZ73nyiI1WeKTSK5JED4yc/sendMessage`, {
+    const res = await fetch("/api/order", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
         },
         body: JSON.stringify({
-            chat_id: "5620578026",
-            text: pesan
+            robloxUsername: username,
+            email: email,
+            packageName: nominal,
+            paymentMethod: "QRIS"
         })
-    })
-    .then(res => res.json())
-    .then(data => {
-        alert("Pesanan berhasil dikirim!");
-    })
-    .catch(err => {
-        alert("Gagal mengirim!");
     });
+
+    const data = await res.json();
+
+    if(data.ok){
+        alert("Pesanan berhasil dikirim!");
+    } else {
+        alert(data.message || "Gagal mengirim!");
+    }
 }
 </script>
 
