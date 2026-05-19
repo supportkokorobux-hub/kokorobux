@@ -248,8 +248,8 @@ Kirim Pesanan
 async function kirimTelegram() {
 
     let username = document.getElementById("username").value;
-    let nominal = document.getElementById("nominal").innerText;
     let email = document.getElementById("email").value;
+    let nominal = document.getElementById("nominal").innerText;
 
     const res = await fetch("/api/order", {
         method: "POST",
