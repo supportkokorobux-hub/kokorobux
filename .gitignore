@@ -1,0 +1,6 @@
+.env
+node_modules/
+npm-debug.log*
+server-test.log
+server-test.err.log
+screenshot-*.png
