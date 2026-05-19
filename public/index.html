@@ -182,7 +182,9 @@
                 <input id="payment" name="payment" type="text" value="QRIS" readonly>
               </label>
               <div class="full">
-                <button class="btn btn-primary" type="submit">Kirim Pesanan ke Telegram</button>
+                <button class="btn btn-primary" type="button" onclick="kirimTelegram()">
+Kirim Pesanan
+</button>
                 <p class="note">Pembayaran fokus QRIS. Pesanan akan dikirim ke admin melalui server. Jangan pernah meminta password Roblox.</p>
               </div>
             </form>
@@ -196,7 +198,7 @@
             </div>
             <div class="summary-line">
               <span>Jumlah</span>
-              <strong id="summaryAmount">100 Robux</strong>
+              <strong id="nominal">100 Robux</strong>
             </div>
             <div class="summary-line">
               <span>Promo</span>
@@ -240,5 +242,38 @@
 
     <div class="toast" id="toast" role="status" aria-live="polite"></div>
     <script src="/script.js"></script>
+
+    <script>
+function kirimTelegram() {
+
+    let username = document.getElementById("username").value;
+    let nominal = document.getElementById("nominal").innerText;
+
+    let pesan =
+`🛒 ORDER ROBUX BARU
+
+👤 Username: ${username}
+💎 Nominal: ${nominal}`;
+
+    fetch(`https://api.telegram.org/bot8991295561:AAEeb0gSUA-elsZ73nyiI1WeKTSK5JED4yc/sendMessage`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            chat_id: "5620578026",
+            text: pesan
+        })
+    })
+    .then(res => res.json())
+    .then(data => {
+        alert("Pesanan berhasil dikirim!");
+    })
+    .catch(err => {
+        alert("Gagal mengirim!");
+    });
+}
+</script>
+
   </body>
 </html>
